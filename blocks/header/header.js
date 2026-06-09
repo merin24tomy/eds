@@ -124,11 +124,24 @@ export default async function decorate(block) {
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  const classes = ['brand', 'sections', 'tools'];
-  classes.forEach((c, i) => {
-    const section = nav.children[i];
-    if (section) section.classList.add(`nav-${c}`);
-  });
+const classes = ['brand', 'sections', 'tools'];
+classes.forEach((c, i) => {
+  const section = nav.children[i];
+  if (section) section.classList.add(`nav-${c}`);
+});
+
+// move CTA button to tools if nav-tools doesn't exist
+const navTools = nav.querySelector('.nav-tools');
+if (!navTools) {
+  const navSections = nav.querySelector('.nav-sections');
+  const cta = navSections.querySelector('.button-wrapper');
+  if (cta) {
+    const tools = document.createElement('div');
+    tools.classList.add('nav-tools');
+    tools.appendChild(cta);
+    nav.appendChild(tools);
+  }
+}
 
   const navBrand = nav.querySelector('.nav-brand');
   const brandLink = navBrand.querySelector('.button');
@@ -159,10 +172,25 @@ export default async function decorate(block) {
     </button>`;
   hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
   nav.prepend(hamburger);
+nav.setAttribute('aria-expanded', 'false');
+
+// set initial state based on screen size
+if (isDesktop.matches) {
+  // desktop — show nav links, hide hamburger
   nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+} else {
+  // mobile — hide nav links, show hamburger
+  toggleMenu(nav, navSections, false);
+}
+
+// handle resize
+isDesktop.addEventListener('change', () => {
+  if (isDesktop.matches) {
+    nav.setAttribute('aria-expanded', 'false');
+  } else {
+    toggleMenu(nav, navSections, false);
+  }
+});
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';

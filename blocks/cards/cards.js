@@ -1,17 +1,38 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
-
 export default function decorate(block) {
-  /* change to ul, li */
-  const ul = document.createElement('ul');
-  [...block.children].forEach((row) => {
-    const li = document.createElement('li');
-    while (row.firstElementChild) li.append(row.firstElementChild);
-    [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
-      else div.className = 'cards-card-body';
+  // Step 1: find all direct child divs → these are our ROWS
+  const rows = block.querySelectorAll(':scope > div');
+
+  rows.forEach((row) => {
+    // Step 2: add 'cards-row' class to each row
+    row.classList.add('cards-row');
+
+    // Step 3: find all cells inside this row
+    const cells = row.querySelectorAll(':scope > div');
+
+    cells.forEach((cell) => {
+      // Step 4: add 'card' class to each cell
+      cell.classList.add('card');
+
+      // Step 5: find the image inside this card
+      const pic = cell.querySelector('picture');
+      if (pic) {
+        const imageWrapper = document.createElement('div');
+        imageWrapper.classList.add('card-image');
+        pic.parentElement.insertBefore(imageWrapper, pic);
+        imageWrapper.appendChild(pic);
+      }
+
+      // Step 6: wrap remaining content in a div
+      const contentWrapper = document.createElement('div');
+      contentWrapper.classList.add('card-content');
+
+      [...cell.children].forEach((child) => {
+        if (!child.classList.contains('card-image')) {
+          contentWrapper.appendChild(child);
+        }
+      });
+
+      cell.appendChild(contentWrapper);
     });
-    ul.append(li);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
-  block.replaceChildren(ul);
 }

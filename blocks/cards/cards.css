@@ -1,27 +1,164 @@
-.cards > ul {
-  list-style: none;
-  margin: 0;
+/* the block wrapper */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
 }
 
-.cards > ul > li {
-  border: 1px solid #dadada;
+/* each row of cards */
+.cards .cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* individual card */
+.cards .card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 250px;
+  max-width: 350px;
+  border: 1px solid var(--light-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   background-color: var(--background-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.cards .cards-card-body {
-  margin: 16px;
+/* card hover effect */
+.cards .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
-.cards .cards-card-image {
-  line-height: 0;
-}
-
-.cards > ul > li img {
+/* card image area */
+.cards .card-image {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.cards .card-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cards .card-image img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+/* card text content */
+.cards .card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.cards .card-content h2,
+.cards .card-content h3 {
+  margin: 0;
+  font-size: var(--heading-font-size-s);
+  color: var(--text-color);
+}
+
+.cards .card-content p {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+  color: var(--dark-color);
+  flex: 1;
+}
+
+/* card link styled as button */
+.cards .card-content a {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: var(--link-color);
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: var(--body-font-size-xs);
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.cards .card-content a:hover {
+  background-color: var(--link-hover-color);
+  text-decoration: none;
+  color: white;
+}
+
+/* responsive — stack on mobile */
+@media (width < 600px) {
+  .cards .card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* ================================
+   DARK VARIANT
+================================ */
+.cards.dark {
+  background-color: var(--dark-color);
+  padding: 32px;
+  border-radius: 12px;
+}
+
+.cards.dark .card {
+  background-color: #1a1a2e;
+  border-color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.cards.dark .card-content h2,
+.cards.dark .card-content h3 {
+  color: white;
+}
+
+.cards.dark .card-content p {
+  color: #ccc;
+}
+
+.cards.dark .card-content a {
+  background-color: white;
+  color: var(--dark-color);
+}
+
+.cards.dark .card-content a:hover {
+  background-color: var(--light-color);
+}
+
+/* ================================
+   HORIZONTAL VARIANT
+================================ */
+.cards.horizontal .card {
+  flex-direction: row;  /* image left, content right */
+  max-width: 100%;
+  flex: 1 1 100%;
+}
+
+.cards.horizontal .card-image {
+  width: 200px;
+  min-width: 200px;
+  aspect-ratio: unset;
+}
+
+.cards.horizontal .card-content {
+  padding: 20px;
+}
+
+/* ================================
+   DARK + HORIZONTAL COMBINED
+================================ */
+.cards.dark.horizontal .card {
+  border-color: #444;
 }
