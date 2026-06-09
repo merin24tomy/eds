@@ -23,7 +23,7 @@
   border: 1px solid var(--light-color);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   background-color: var(--background-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -31,7 +31,7 @@
 /* card hover effect */
 .cards .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* card image area */
@@ -116,7 +116,7 @@
 .cards.dark .card {
   background-color: #1a1a2e;
   border-color: #333;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .cards.dark .card-content h2,
@@ -141,7 +141,8 @@
    HORIZONTAL VARIANT
 ================================ */
 .cards.horizontal .card {
-  flex-direction: row;  /* image left, content right */
+  flex-direction: row;
+  /* image left, content right */
   max-width: 100%;
   flex: 1 1 100%;
 }

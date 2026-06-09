@@ -16,6 +16,10 @@ export default function decorate(block) {
       // Step 5: find the image inside this card
       const pic = cell.querySelector('picture');
       if (pic) {
+        // update sizes for card layout
+        const img = pic.querySelector('img');
+        if (img) img.setAttribute('sizes', '(min-width: 900px) 33vw, 100vw');
+
         const imageWrapper = document.createElement('div');
         imageWrapper.classList.add('card-image');
         pic.parentElement.insertBefore(imageWrapper, pic);
