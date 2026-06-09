@@ -1,0 +1,118 @@
+/* timeline wrapper */
+.timeline {
+  position: relative;
+  padding: 40px 0;
+}
+
+/* vertical line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #0057d9, #e0e8ff);
+  transform: translateX(-50%);
+}
+
+/* each timeline item */
+.timeline .timeline-item {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: calc(50% + 32px);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.timeline .timeline-item.timeline-right {
+  justify-content: flex-start;
+  padding-right: 0;
+  padding-left: calc(50% + 32px);
+}
+
+/* dot on the line */
+.timeline .timeline-item::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  width: 14px;
+  height: 14px;
+  background: var(--link-color);
+  border: 3px solid white;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 3px #0057d933;
+}
+
+/* day badge */
+.timeline .timeline-day {
+  display: none;
+  /* hidden — day shown in content */
+}
+
+/* content card */
+.timeline .timeline-content {
+  background: white;
+  border: 1px solid #e0e8ff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  max-width: 380px;
+  box-shadow: 0 4px 16px rgba(0, 87, 217, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline .timeline-content:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 87, 217, 0.15);
+}
+
+.timeline .timeline-content h2,
+.timeline .timeline-content h3 {
+  color: var(--link-color);
+  font-size: var(--body-font-size-m);
+  margin: 0 0 8px 0;
+}
+
+.timeline .timeline-content p {
+  color: #4a5568;
+  font-size: var(--body-font-size-xs);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* mobile — single column */
+@media (width < 900px) {
+  .timeline::before {
+    left: 16px;
+  }
+
+  .timeline .timeline-item,
+  .timeline .timeline-item.timeline-right {
+    padding-left: 48px;
+    padding-right: 0;
+    justify-content: flex-start;
+  }
+
+  .timeline .timeline-item::after {
+    left: 16px;
+  }
+
+  .timeline .timeline-content {
+    max-width: 100%;
+  }
+}
+
+/* day badge inside card */
+.timeline .timeline-badge {
+  display: inline-block;
+  background: var(--link-color);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  letter-spacing: 0.03em;
+}
