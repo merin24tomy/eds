@@ -323,3 +323,46 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+/* highlight section */
+main .section.highlight {
+  background-color: #e8f4fd;
+  margin: 0;
+  padding: 40px 0;
+}
+
+/* dark section */
+main .section.dark {
+  background-color: var(--dark-color);
+  color: white;
+  margin: 0;
+  padding: 40px 0;
+}
+
+/* dark section headings */
+main .section.dark h1,
+main .section.dark h2,
+main .section.dark h3 {
+  color: white;
+}
+
+/* dark section links */
+main .section.dark a {
+  color: #7eb3f5;
+}
+
+/* centered section */
+main .section.centered {
+  text-align: center;
+}
+
+/* hero section — bigger padding */
+main .section.hero {
+  padding: 80px 0;
+  text-align: center;
+}
+
+main .section.hero h1 {
+  font-size: var(--heading-font-size-xxl);
+  margin-bottom: 16px;
+}

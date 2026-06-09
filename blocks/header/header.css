@@ -2,10 +2,11 @@
 header .nav-wrapper {
   background-color: var(--background-color);
   width: 100%;
-  z-index: 2;
+  z-index: 9999;
   position: fixed;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-
+ 
 header nav {
   box-sizing: border-box;
   display: grid;
@@ -20,7 +21,7 @@ header nav {
   padding: 0 24px;
   font-family: var(--body-font-family);
 }
-
+ 
 header nav[aria-expanded='true'] {
   grid-template:
     'hamburger brand' var(--nav-height)
@@ -29,43 +30,26 @@ header nav[aria-expanded='true'] {
   overflow-y: auto;
   min-height: 100dvh;
 }
-
-@media (width >= 900px) {
-  header .nav-wrapper {
-    position: relative;
-  }
-
-  header nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 0 32px;
-    max-width: 1264px;
-    padding: 0 32px;
-  }
-
-  header nav[aria-expanded='true'] {
-    min-height: 0;
-    overflow: visible;
-  }
-}
-
+ 
 header nav p {
   margin: 0;
   line-height: 1;
 }
-
+ 
 header nav a:any-link {
   color: currentcolor;
 }
-
-/* hamburger */
+ 
+/* ================================
+   HAMBURGER
+================================ */
 header nav .nav-hamburger {
   grid-area: hamburger;
   height: 22px;
   display: flex;
   align-items: center;
 }
-
+ 
 header nav .nav-hamburger button {
   height: 22px;
   margin: 0;
@@ -78,7 +62,7 @@ header nav .nav-hamburger button {
   text-overflow: initial;
   white-space: initial;
 }
-
+ 
 header nav .nav-hamburger-icon,
 header nav .nav-hamburger-icon::before,
 header nav .nav-hamburger-icon::after {
@@ -87,14 +71,14 @@ header nav .nav-hamburger-icon::after {
   position: relative;
   width: 20px;
 }
-
+ 
 header nav .nav-hamburger-icon::before,
 header nav .nav-hamburger-icon::after {
   content: '';
   position: absolute;
   background: currentcolor;
 }
-
+ 
 header nav[aria-expanded='false'] .nav-hamburger-icon,
 header nav[aria-expanded='false'] .nav-hamburger-icon::before,
 header nav[aria-expanded='false'] .nav-hamburger-icon::after {
@@ -102,19 +86,19 @@ header nav[aria-expanded='false'] .nav-hamburger-icon::after {
   border-radius: 2px;
   background: currentcolor;
 }
-
+ 
 header nav[aria-expanded='false'] .nav-hamburger-icon::before {
   top: -6px;
 }
-
+ 
 header nav[aria-expanded='false'] .nav-hamburger-icon::after {
   top: 6px;
 }
-
+ 
 header nav[aria-expanded='true'] .nav-hamburger-icon {
   height: 22px;
 }
-
+ 
 header nav[aria-expanded='true'] .nav-hamburger-icon::before,
 header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   top: 3px;
@@ -125,21 +109,16 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   height: 2px;
   border-radius: 2px;
 }
-
+ 
 header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   top: unset;
   bottom: 3px;
   transform: rotate(-45deg);
 }
-
-@media (width >= 900px) {
-  header nav .nav-hamburger {
-    display: none;
-    visibility: hidden;
-  }
-}
-
-/* brand */
+ 
+/* ================================
+   BRAND
+================================ */
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
@@ -147,61 +126,135 @@ header .nav-brand {
   font-weight: 700;
   line-height: 1;
 }
-
+ 
 header nav .nav-brand img {
   width: 128px;
   height: auto;
 }
-
-/* sections */
+ 
+/* ================================
+   NAV SECTIONS — hidden by default (mobile first)
+================================ */
 header nav .nav-sections {
   grid-area: sections;
   flex: 1 1 auto;
   display: none;
   visibility: hidden;
 }
-
+ 
 header nav[aria-expanded='true'] .nav-sections {
   display: block;
   visibility: visible;
   align-self: start;
 }
-
+ 
 header nav .nav-sections ul {
   list-style: none;
   padding-left: 0;
   font-size: var(--body-font-size-s);
 }
-
+ 
 header nav .nav-sections ul > li {
   font-weight: 500;
 }
-
+ 
 header nav .nav-sections ul > li > ul {
   margin-top: 0;
 }
-
+ 
 header nav .nav-sections ul > li > ul > li {
   font-weight: 400;
 }
-
+ 
+/* ================================
+   TOOLS
+================================ */
+header nav .nav-tools {
+  grid-area: tools;
+}
+ 
+/* ================================
+   DESKTOP 900px+
+================================ */
 @media (width >= 900px) {
+header .nav-wrapper {
+  background-color: var(--background-color);
+  width: 100%;
+  z-index: 9999;
+  position: fixed;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden; /* ADD THIS */
+}
+ 
+ header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 24px;
+  max-width: 1200px;
+  padding: 0 24px;
+}
+ 
+  header nav[aria-expanded='true'] {
+    min-height: 0;
+    overflow: visible;
+  }
+ 
+  /* hide hamburger */
+  header nav .nav-hamburger {
+    display: none;
+    visibility: hidden;
+  }
+ 
+  /* show nav links */
   header nav .nav-sections {
     display: block;
     visibility: visible;
     white-space: nowrap;
+    flex: 1 1 auto;
   }
-
+ 
   header nav[aria-expanded='true'] .nav-sections {
     align-self: unset;
   }
-
+ 
+  /* horizontal flex list */
+header nav .nav-sections ul {
+  display: flex;
+  align-items: center;
+  gap: 16px;  /* reduced from 24px */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 100%;
+}
+ 
+  header nav .nav-sections .default-content-wrapper > ul > li {
+    flex: 0 1 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+ 
+  header nav .nav-sections ul > li > a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: var(--body-font-size-xs);
+    font-weight: 500;
+  }
+ 
+  header nav .nav-sections ul > li > a:hover {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+ 
+  /* dropdown */
   header nav .nav-sections .nav-drop {
     position: relative;
     padding-right: 16px;
     cursor: pointer;
   }
-
+ 
   header nav .nav-sections .nav-drop::after {
     content: '';
     display: inline-block;
@@ -215,31 +268,15 @@ header nav .nav-sections ul > li > ul > li {
     border-radius: 0 1px 0 0;
     border-width: 2px 2px 0 0;
   }
-
+ 
   header nav .nav-sections .nav-drop[aria-expanded='true']::after {
     top: unset;
     bottom: 0.5em;
     transform: rotate(315deg);
   }
-
-  header nav .nav-sections ul {
-    display: flex;
-    gap: 24px;
-    margin: 0;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li {
-    flex: 0 1 auto;
-    position: relative;
-  }
-
+ 
   header nav .nav-sections .default-content-wrapper > ul > li > ul {
     display: none;
-    position: relative;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
-    display: block;
     position: absolute;
     left: -24px;
     width: 200px;
@@ -248,7 +285,11 @@ header nav .nav-sections ul > li > ul > li {
     background-color: var(--light-color);
     white-space: initial;
   }
-
+ 
+  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
+    display: block;
+  }
+ 
   header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
     content: '';
     position: absolute;
@@ -260,13 +301,86 @@ header nav .nav-sections ul > li > ul > li {
     border-right: 8px solid transparent;
     border-bottom: 8px solid var(--light-color);
   }
-
+ 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
     padding: 8px 0;
   }
+ 
+  /* tools right align */
+  header nav .nav-tools {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  /* links are wrapped in <p> tags */
+header nav .nav-sections ul > li > p > a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: var(--body-font-size-xs);
+  font-weight: 500;
 }
 
-/* tools */
+header nav .nav-sections ul > li > p > a:hover {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
+header nav .nav-sections ul > li > p {
+  margin: 0;
+}
+
+header nav .nav-sections {
+  height: var(--nav-height); /* lock to 64px */
+  overflow: hidden;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+header nav .nav-sections .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+header nav .nav-sections ul {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 100%;
+}
+
+header nav .nav-sections ul > li {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+header nav .nav-sections ul > li > p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+}
+
+/* force vertical alignment fix */
+header nav {
+  align-items: center !important;
+}
+
+header nav .nav-sections {
+  align-self: center !important;
+}
+
+header nav .nav-brand {
+  align-self: center !important;
+}
+
 header nav .nav-tools {
-  grid-area: tools;
+  align-self: center !important;
 }
